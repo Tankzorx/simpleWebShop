@@ -1,0 +1,47 @@
+div.product-teaser {
+  max-height: 350px;
+  min-height: 350px;
+  overflow: hidden;
+}
+
+div.tag-link {
+  display: inline-block;
+}
+
+div.product-image-container {
+  max-height: 450px;
+}
+
+img.product-image {
+  height: auto;
+  width: auto;
+  max-width: 300px;
+  max-height: 450px;
+  border: 1px solid green;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.dev-style {
+  border: 0px solid blue
+}
+
+input.quantity-selector {
+  width: 70px;
+}
+
+div.currStock {
+  height: 37px;
+}
+span.back-button:hover  {
+  display: !important;
+}
+
+table.cart {
+  width: 100%;
+}
+
+tr.filler-row {
+  height: 20px
+}

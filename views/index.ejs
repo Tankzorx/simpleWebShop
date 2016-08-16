@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ledShop</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" charset="utf-8">
+    <base href="/shop">
+  </head>
+  <body ng-app="ledShop">
+    <navbardirective></navbardirective>
+    <div ng-view></div>
+
+
+    <script src="/bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js" charset="utf-8"></script>
+    <script src="/app/app.js" charset="utf-8"></script>
+    <script src="/app/shared/productsService.js" charset="utf-8"></script>
+    <script src="/app/shared/cartService.js" charset="utf-8"></script>
+    <script src="/app/components/navbar/navbarDirective.js" charset="utf-8"></script>
+    <script src="/app/components/navbar/navbarCtrl.js" charset="utf-8"></script>
+    <script src="/app/components/home/homeCtrl.js" charset="utf-8"></script>
+    <script src="/app/components/about/aboutCtrl.js" charset="utf-8"></script>
+    <script src="/app/components/cart/cartCtrl.js" charset="utf-8"></script>
+    <script src="/app/components/product/productCtrl.js" charset="utf-8"></script>
+    <script src="/app/components/search/searchCtrl.js" charset="utf-8"></script>
+    <script src="/app/components/checkout/checkoutCtrl.js" charset="utf-8"></script>
+  </body>
+</html>

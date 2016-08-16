@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+      <div class="backButton col-md-12">
+        <a href="#" ng-click="goBack()"><span class="back-button glyphicon glyphicon-arrow-left"></span></a>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="product-image-container col-md-5 dev-style">
+      <img src="/images/test.jpg" alt="Kappa" class="product-image" />
+    </div>
+    <div class="product-info col-md-7 dev-style">
+      <h1 class="dev-style"> {{ product.productTitle }} </h1>
+      <h4 class="dev-style"> {{ product.category }} </h4>
+      <div class="product-description dev-style">
+        <p>
+          {{ product.description}}
+        </p>
+      </div>
+      <div class="dev-style">
+        <h3><strong>Properties:</strong></h3>
+        <ul>
+          <li ng-repeat="prop in product.properties track by $index">
+            {{ prop }}
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-12">
+        <div class="currStock col-md-6 dev-style">
+          <strong>Current stock: </strong> {{ product.currentStock }}
+        </div>
+        <div class="dev-style buy-section col-md-6">
+          <strong>Quantity: </strong>
+          <input class="quantity-selector" maxlength="4" min="0" size="2"
+                 ng-model="quantitySelected"
+                 type="number" name="name" value="{{quantitySelected}}" />
+          <button ng-click="addToCart()" class="btn btn-success" name="button">Add to Cart!</button>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <strong>Tags: </strong>
+        <div class="tag-link" ng-repeat="tag in product.tags track by $index">
+          <a>{{ tag }}</a>
+          <div class="tag-link" ng-if="!$last">,&nbsp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h1>SIMILAR ITEMS...</h1>
+  </div>
+</div>

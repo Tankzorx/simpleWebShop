@@ -1,0 +1,40 @@
+<div class="container">
+  <table class="dev-style cart">
+    <tr>
+      <th>
+        Item Name
+      </th>
+      <th>
+        Quantity
+      </th>
+      <th>
+        Unit Price
+      </th>
+      <th>
+        Total
+      </th>
+    </tr>
+    <tr ng-repeat="item in cart" ng-if="item.quantity > 0">
+      <td>
+        <a href="/shop/product/{{item.product._id}}">{{ item.product.productTitle }}</a>
+      </td>
+      <td>
+        {{item.quantity}} stk.
+      </td>
+      <td>
+        DKK {{ item.product.price }} .-
+      </td>
+      <td>
+        DKK {{ item.product.price * item.quantity }} .-
+      </td>
+    </tr>
+    <tr class="filler-row">
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Sub Total: DKK {{ totalCost }}.-</td>
+    </tr>
+  </table>
+</div>

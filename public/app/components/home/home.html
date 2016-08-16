@@ -1,0 +1,32 @@
+<div class="container">
+  <h3>{{ msg }}</h3>
+  <h2 ng-show="error" class="alert alert-danger"> {{ error }} </h2>
+  <div class="row">
+    <!-- Have to track by $index, since apparently it looks like
+         the products are identical for ng-repeat.
+    -->
+    <div ng-repeat="product in products track by product._id" class="product-teaser col-md-6">
+      <a href="/shop/product/{{product._id}}"><h3><strong>{{product.productTitle}}</strong></h3></a>
+      <p>
+        <strong>Category:</strong> {{ product.category }}
+      </p>
+      <p>
+        <strong>Properties:</strong>
+      </p>
+      <div ng-repeat="prop in product.properties">
+        <p>
+          {{prop}}
+        </p>
+      </div>
+      <p><strong>Tags:</strong></p>
+      <div class="tag-link" ng-repeat="tag in product.tags track by $index">
+        <a>{{ tag }}</a>
+        <div class="tag-link" ng-if="!$last">,&nbsp</div>
+      </div>
+      <p><strong>Description:</strong></p>
+      <p>
+        {{ product.description}}
+      </p>
+    </div>
+  </div>
+</div>
