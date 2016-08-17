@@ -1,7 +1,7 @@
 angular.module("ledShop")
 .controller("productCtrl",
-["$scope","$routeParams","productsService","cartService",
-function ($scope,$routeParams,productsService,cartService) { // Can't use arrow function?
+["$scope","$routeParams","productsService","cartService","$timeout",
+function ($scope,$routeParams,productsService,cartService,$timeout) { // Can't use arrow function?
   $scope.msg = "Product Controller Operational";
 
   $scope.product;
@@ -9,11 +9,11 @@ function ($scope,$routeParams,productsService,cartService) { // Can't use arrow 
   $scope.quantitySelected = 0;
   $scope.true = true;
   $scope.pid = $routeParams.pid;
+  $scope.justAdded = false;
   let promise = productsService.get($routeParams.pid)
 
   promise.then(
     (data) => {
-      console.log(data);
       $scope.product = data;
     },
     (error) => {
@@ -22,10 +22,15 @@ function ($scope,$routeParams,productsService,cartService) { // Can't use arrow 
   )
 
   $scope.addToCart = () => {
-    console.log("Adding:");
-    console.log("   - " + $scope.product.productTitle);
-    console.log("   - " + $scope.quantitySelected);
+    if ($scope.quantitySelected === 0) {
+       return;
+    }
+    $scope.justAdded = true;
+    $timeout(() => {
+      $scope.justAdded = false;
+    }, 1500);
     cartService.addItem($scope.product,$scope.quantitySelected)
+    $scope.quantitySelected = 0;
   }
 
   $scope.goBack = () => {

@@ -1,18 +1,55 @@
 angular.module("ledShop")
-.factory("cartService",["$q","$http",function($q,$http) {
+.factory("cartService",["$q","$http","$rootScope",function($q,$http,$rootScope) {
   let cart = {};
-  // let cartId = // Make this be created only once.
+  let userId = localStorage.getItem("webShopUser");
+
+  // On initialization we get the users cart.
+  let getCartPromise = $http.get("users/" + userId);
+  getCartPromise.then((res) => {
+    if (!res.data) {
+      return;
+    };
+    for (item of res.data.cart) {
+      cart[item.product._id] = {quantity : item.quantity, product : item.product}
+    }
+    $rootScope.$emit("cartChange")
+  },(res) => {
+    console.log(res);
+  })
+
+  let saveCart = (userId,cart) => {
+    let saveCartPromise = $http.post("users/save/" + userId, cart)
+    saveCartPromise.then((res) => {
+      console.log(res);
+      userId = res.data;
+      localStorage.setItem("webShopUser",userId);
+      console.log("Set userId: " + userId);
+    },(res) => {
+      console.log(res);
+    })
+    return saveCartPromise.promise;
+  }
+
+
   return {
+    getCartPromise : getCartPromise.promise,
     get: () => {
       return cart;
     },
     addItem: (product,quantity) => {
+      if (quantity <= 0) {
+        return;
+      }
       if (cart[product._id]) {
         cart[product._id].quantity += quantity;
       } else {
         cart[product._id] = { "quantity" : quantity, "product" : product };
-      }
-      console.log(cart);
+      };
+
+      // Save the cart on server.
+      saveCart(userId,cart);
+      // Let listeners know that we added an item.
+      $rootScope.$emit("cartChange",{"product":product,"quantity":quantity})
     },
     removeItem: (pid,quantity) => {
       if (cart[pid]) {
@@ -21,18 +58,31 @@ angular.module("ledShop")
         } else {
           cart[pid].quantity = 0;
         }
-      }
-    },
-    getCartValue: () => {
-      console.log("'getCartValue' not implemented yet.");
-      return 0;
+      };
+      // Save the cart on server.
+      let saveCartPromise = $http.post("users/save/" + userId, cart)
+      saveCartPromise.then((res) => {
+        console.log(res);
+        userId = res.data;
+        localStorage.setItem("webShopUser",userId);
+        console.log("Set userId: " + userId);
+      },(res) => {
+        console.log(res);
+      })
+      $rootScope.$emit("cartChange");
     },
     getCartValue: () => {
       let total = 0;
       for (pid of Object.keys(cart)) {
         total += cart[pid].product.price * cart[pid].quantity
       }
+      console.log(total);
       return total;
+    },
+    saveCart: (cart) => {
+      cart = cart;
+      saveCart(userId,cart);
+      $rootScope.$emit("cartChange");
     }
   };
 }])

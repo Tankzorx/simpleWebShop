@@ -45,3 +45,15 @@ table.cart {
 tr.filler-row {
   height: 20px
 }
+
+.notification {
+  vertical-align: middle;
+}
+
+span.just-bought-icon {
+  width: auto;
+}
+
+table.cart td,table.cart th {
+  text-align: center;
+}

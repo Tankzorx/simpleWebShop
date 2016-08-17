@@ -4,15 +4,39 @@ var router = express.Router();
 var User = require('../models/user');
 var mongoose = require('mongoose');
 
-router.get("/save", (req,res) => {
+router.post("/save/:userId", (req,res) => {
+  let userId = req.params.userId
+  let cart = [];
+  for (let key in req.body) {
+    cart.push({product : req.body[key].product,quantity : req.body[key].quantity})
+  }
 
-  let cart = [mongoose.Types.ObjectId()];
-  let newUser = new User({lastSeen : new Date(),cart : cart})
-  console.log(newUser);
-  newUser.save((err) => {
-    if (err) return console.log(err);
-    res.send("Success");
-  })
+  // If user doesn't exist, generate a new one.
+  if (userId === "undefined" || userId === "null") {
+    let newUser = new User({lastSeen : new Date(), cart : cart})
+    console.log(newUser);
+    newUser.save((err) => {
+      if (err) return console.log(err);
+      res.send(newUser._id);
+    })
+  } else {
+    // If userId was provided, update existing cart
+    let query = User.update(
+      {_id : userId},
+      {cart : cart}
+    )
+
+    query.exec((error,data) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send(error)
+      } else {
+        res.send(userId);
+      }
+    })
+  }
+
+
 })
 
 /* GET users listing. */

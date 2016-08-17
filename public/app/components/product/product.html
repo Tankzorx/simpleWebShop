@@ -33,15 +33,17 @@
           <strong>Quantity: </strong>
           <input class="quantity-selector" maxlength="4" min="0" size="2"
                  ng-model="quantitySelected"
-                 type="number" name="name" value="{{quantitySelected}}" />
-          <button ng-click="addToCart()" class="btn btn-success" name="button">Add to Cart!</button>
+                 type="number" name="name" value="0" />
+          <button ng-click="addToCart()" class="btn btn-success" name="button">
+            <div ng-hide="justAdded">Add to Cart!</div>
+            <span class="just-bought-icon glyphicon glyphicon-ok" ng-show="justAdded"></span>
+          </button>
         </div>
       </div>
       <div class="col-md-12">
         <strong>Tags: </strong>
         <div class="tag-link" ng-repeat="tag in product.tags track by $index">
-          <a>{{ tag }}</a>
-          <div class="tag-link" ng-if="!$last">,&nbsp</div>
+          <a>{{ tag }}</a><div class="tag-link" ng-if="!$last">,&nbsp</div>
         </div>
       </div>
     </div>

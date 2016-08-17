@@ -20,8 +20,9 @@
         <button type="submit" class="btn btn-info" ng-click="search()">Søg</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
+        <li class="label label-success" ng-show="showNotification"><h4>{{ notification }}</h4></li>
         <li><a href="/shop/about">Om os</a></li>
-        <li><a href="/shop/cart">Kurv <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+        <li><a href="/shop/cart">Kurv (DKK {{ cartValue }})<span class="glyphicon glyphicon-shopping-cart"></span></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Indstillinger mebbe <span class="caret"></span></a>
           <ul class="dropdown-menu">
