@@ -3,7 +3,9 @@ angular.module("ledShop")
   let cart = {};
   let userId = localStorage.getItem("webShopUser");
 
-  // On initialization we get the users cart.
+  /**
+   * INITIALIZATION
+   */
   let getCartPromise = $http.get("users/" + userId);
   getCartPromise.then((res) => {
     if (!res.data) {
@@ -16,14 +18,15 @@ angular.module("ledShop")
   },(res) => {
     console.log(res);
   })
+  /**
+   * END INITIALIZATION
+   */
 
   let saveCart = (userId,cart) => {
     let saveCartPromise = $http.post("users/save/" + userId, cart)
     saveCartPromise.then((res) => {
-      console.log(res);
       userId = res.data;
       localStorage.setItem("webShopUser",userId);
-      console.log("Set userId: " + userId);
     },(res) => {
       console.log(res);
     })
@@ -62,10 +65,8 @@ angular.module("ledShop")
       // Save the cart on server.
       let saveCartPromise = $http.post("users/save/" + userId, cart)
       saveCartPromise.then((res) => {
-        console.log(res);
         userId = res.data;
         localStorage.setItem("webShopUser",userId);
-        console.log("Set userId: " + userId);
       },(res) => {
         console.log(res);
       })
@@ -76,7 +77,6 @@ angular.module("ledShop")
       for (pid of Object.keys(cart)) {
         total += cart[pid].product.price * cart[pid].quantity
       }
-      console.log(total);
       return total;
     },
     saveCart: (cart) => {

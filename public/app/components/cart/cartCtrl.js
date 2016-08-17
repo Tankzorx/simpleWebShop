@@ -7,7 +7,6 @@ function ($scope,cartService,$rootScope) {
   $scope.makeArray = (int) => {
     int = parseInt(int);
     int += 10;
-
     retval = new Array(int);
     for(let i = 0; i < int; i++) {
       retval[i] = i;

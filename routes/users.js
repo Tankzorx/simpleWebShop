@@ -10,33 +10,40 @@ router.post("/save/:userId", (req,res) => {
   for (let key in req.body) {
     cart.push({product : req.body[key].product,quantity : req.body[key].quantity})
   }
+  // Check if a user with the given ID exists.
+  User.findById(userId,(error,user) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).send(error);
+    }
+    // If no user found, create a new one
+    if (!user) {
+      let newUser = new User({lastSeen : new Date(), cart : cart})
+      newUser.save((err) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send(err);
+        }
+        res.send(newUser._id);
+      })
+    }
+    // If one was found, update it.
+    else {
+      let query = User.update(
+        {_id : userId},
+        {cart : cart}
+      )
 
-  // If user doesn't exist, generate a new one.
-  if (userId === "undefined" || userId === "null") {
-    let newUser = new User({lastSeen : new Date(), cart : cart})
-    console.log(newUser);
-    newUser.save((err) => {
-      if (err) return console.log(err);
-      res.send(newUser._id);
-    })
-  } else {
-    // If userId was provided, update existing cart
-    let query = User.update(
-      {_id : userId},
-      {cart : cart}
-    )
-
-    query.exec((error,data) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send(error)
-      } else {
-        res.send(userId);
-      }
-    })
-  }
-
-
+      query.exec((error,data) => {
+        if (error) {
+          console.log(error);
+          res.status(500).send(error)
+        } else {
+          res.send(userId);
+        }
+      })
+    }
+  })
 })
 
 /* GET users listing. */
@@ -45,7 +52,6 @@ router.get('/:id', (req, res, next) => {
     if (err) {
       console.log(err);
     }
-
     res.send(user);
   })
 });

@@ -19,9 +19,15 @@
         <a href="/shop/product/{{item.product._id}}">{{ item.product.productTitle }}</a>
       </td>
       <td class="dev-style">
-        <select class="form-control" ng-change="saveCart()" name="Quantity" ng-model="cart[item.product._id].quantity">
-          <option value="{{i}}" ng-repeat="i in makeArray(10)">{{i}}</option>
-        </select>
+        <!-- Old way, with select. -->
+        <!-- <select value="123" class="form-control"
+          ng-change="saveCart(item.product._id)" name="Quantity"
+          ng-model="cart[item.product._id].quantity">
+          <option value="{{i}}" ng-repeat="i in makeArray(cart[item.product._id].quantity) track by $index">{{i}}</option>
+        </select> -->
+        <input ng-change="saveCart()" class="quantity-selector" maxlength="4" min="0" size="2"
+               ng-model="cart[item.product._id].quantity"
+               type="number" name="name" value="{{ cart[item.product._id].quantity }}" />
       </td>
       <td class="dev-style">
         DKK {{ item.product.price }} .-
