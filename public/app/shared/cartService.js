@@ -63,13 +63,7 @@ angular.module("ledShop")
         }
       };
       // Save the cart on server.
-      let saveCartPromise = $http.post("users/save/" + userId, cart)
-      saveCartPromise.then((res) => {
-        userId = res.data;
-        localStorage.setItem("webShopUser",userId);
-      },(res) => {
-        console.log(res);
-      })
+      saveCart(userId,cart);
       $rootScope.$emit("cartChange");
     },
     getCartValue: () => {

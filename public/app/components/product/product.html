@@ -7,7 +7,7 @@
   </div>
   <div class="row">
     <div class="product-image-container col-md-5 dev-style">
-      <img src="/images/test.jpg" alt="Kappa" class="product-image" />
+      <img ng-src="/images/{{ product.images[0].id }}{{ product.images[0].extension }}" alt="Product Image" class="product-image" />
     </div>
     <div class="product-info col-md-7 dev-style">
       <h1 class="dev-style"> {{ product.productTitle }} </h1>

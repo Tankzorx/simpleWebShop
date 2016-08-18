@@ -7,7 +7,7 @@ var productSchema = new Schema({
   category: String,
   price: Number,
   currentStock: Number,
-  images: [Schema.Types.ObjectId],
+  images: [{id : Schema.Types.ObjectId, extension : String}],
   properties: [String],
   tags: [String],
   description: String,
