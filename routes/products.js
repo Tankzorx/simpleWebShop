@@ -45,14 +45,11 @@ router.get("/", parseJson,parseUrlencoded, (req,res) => {
     if (error) {
       res.status(500).send(err);
     }
-
     res.send(data);
-
   })
 })
-
 router.get("/tag",parseJson,parseUrlencoded, (req,res) => {
-
+  res.status(500).send("Not implemented yet")
 })
 
 router.post("/add", parseJson,parseUrlencoded,(req,res) => {
