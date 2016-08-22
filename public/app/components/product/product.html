@@ -7,8 +7,18 @@
   </div>
   <div class="row">
     <div class="product-image-container col-md-5 dev-style">
-      <img ng-src="/images/{{ product.images[0].id }}{{ product.images[0].extension }}" alt="Product Image" class="product-image" />
-    </div>
+      <img ng-click="selectImage(selectedImage+1)" ng-src="/images/{{ product.images[selectedImage].id }}{{ product.images[selectedImage].extension }}" alt="Product Image" class="product-image" err-SRC="/static_images/404.jpg"/><br>
+			<div ng-show="product.images.length > 2" class="product-tiny-image">
+					<img ng-click="selectImage(selectedImage+1)" ng-src="/images/{{ product.images[(selectedImage+product.images.length+1) % product.images.length].id }}{{ product.images[(selectedImage+product.images.length+1) % product.images.length].extension }}" alt="" class="product-tiny-image" err-SRC="/static_images/404.jpg"/>
+					<img ng-src="/images/{{ product.images[(selectedImage) % product.images.length].id }}{{ product.images[selectedImage].extension }}" alt="" class="product-tiny-image" err-SRC="/static_images/404.jpg"/>
+					<img ng-click="selectImage(selectedImage+product.images.length-1)" ng-src="/images/{{ product.images[(selectedImage+product.images.length-1) % product.images.length].id }}{{ product.images[(selectedImage+product.images.length-1) % product.images.length].extension }}" alt="" class="product-tiny-image" err-SRC="/static_images/404.jpg"/>
+			</div>
+			<!-- <div ng-hide="product.images.length > 3" class="product-tiny-image">
+				<img ng-repeat="" src="" alt="" />
+			</div> -->
+			<br>
+		</div>
+
     <div class="product-info col-md-7 dev-style">
       <h1 class="dev-style"> {{ product.productTitle }} </h1>
       <h4 class="dev-style"> {{ product.category }} </h4>

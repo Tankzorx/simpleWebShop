@@ -13,7 +13,7 @@
 		<div ng-repeat="product in products track by product._id" class="product-teaser col-md-4">
 			<div class="col-xs-12 col-md-12 product-image-container">
 				<a href="/shop/product/{{product._id}}" class="thumbnail">
-					<img class="teaser-image" ng-src="/images/{{ product.images[0].id }}{{ product.images[0].extension }}" alt="...">
+					<img class="teaser-image" ng-src="/images/{{ product.images[0].id }}{{ product.images[0].extension }}" alt="..." err-SRC="/static_images/404.jpg">
 				</a>
 			</div>
 			<div class="product-teaser-text">

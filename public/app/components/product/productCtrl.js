@@ -10,8 +10,10 @@ function ($scope,$routeParams,productsService,cartService,$timeout) { // Can't u
   $scope.true = true;
   $scope.pid = $routeParams.pid;
   $scope.justAdded = false;
-  let promise = productsService.get($routeParams.pid)
+	$scope.selectedImage = 0;
 
+
+	let promise = productsService.get($routeParams.pid)
   promise.then(
     (data) => {
       $scope.product = data;
@@ -31,7 +33,15 @@ function ($scope,$routeParams,productsService,cartService,$timeout) { // Can't u
     }, 1500);
     cartService.addItem($scope.product,$scope.quantitySelected)
     $scope.quantitySelected = 0;
-  }
+  };
+
+	$scope.selectImage = (index) => {
+		console.log($scope.product.images);
+
+		index = index % ($scope.product.images.length);
+		console.log(index);
+		$scope.selectedImage = index;
+	}
 
   $scope.goBack = () => {
     history.back();
