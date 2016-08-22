@@ -11,8 +11,10 @@ router.post("/save/:userId", (req,res) => {
     cart.push({product : req.body[key].product,quantity : req.body[key].quantity})
   }
   // Check if a user with the given ID exists.
+	// If client gives a uid that can't be casted to ObjectId, we assume
+	// that client doesn't have a user.
   User.findById(userId,(error,user) => {
-    if (error) {
+    if (error && error.name !== "CastError") {
       console.log(error);
       return res.status(500).send(error);
     }
