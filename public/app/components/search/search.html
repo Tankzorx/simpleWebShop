@@ -1,6 +1,28 @@
 <div class="container">
-  <h3> {{ msg }} </h3>
-  <p>
-    {{ searchQuery }}
-  </p>
+	<h2 ng-show="error" class="alert alert-danger"> {{ error }} </h2>
+	<div class="row">
+		<!-- Have to track by $index, since apparently it looks like
+		the products are identical for ng-repeat.
+		-->
+		<img ng-show="loading" class="loading-gif" src="/static_images/loading3.gif" alt="loading.." />
+
+		<div class="no-search-results" ng-show="noResults">
+			<h1>No Search Results :(</h1>
+		</div>
+
+		<div ng-repeat="product in products track by product._id" class="product-teaser col-md-4">
+			<div class="col-xs-12 col-md-12 product-image-container">
+				<a href="/shop/product/{{product._id}}" class="thumbnail">
+					<img class="teaser-image" ng-src="/images/{{ product.images[0].id }}{{ product.images[0].extension }}" alt="...">
+				</a>
+			</div>
+			<div class="product-teaser-text">
+				<a href="/shop/product/{{product._id}}"><h3><strong>{{product.productTitle}}</strong></h3></a>
+				<p>
+					<strong>Category:</strong> {{ product.category }}
+				</p>
+				<a  href="/shop/product/{{product._id}}"><button class="btn btn-info" type="button" name="button">Read more!</button></a>
+			</div>
+		</div>
+	</div>
 </div>

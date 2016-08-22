@@ -18,7 +18,7 @@ router.get("/search", parseJson,parseUrlencoded,(req,res) => {
   // }
   // Need to improvise a somewhat decent search algorith..
   let keyword = req.query.keyword || "";
-  console.log(keyword);
+  // console.log(keyword);
   let query = Product.find(
    { $text: { $search: keyword } },
    { score: { $meta: "textScore" } }
@@ -29,7 +29,10 @@ router.get("/search", parseJson,parseUrlencoded,(req,res) => {
       console.log(error);
       return res.status(500).send(error);
     }
-    return res.send({"products" : products});
+		// Enable timeout for testing purposes only.
+		// setTimeout(function () {
+			return res.send({"products" : products});
+		// }, 1200);
   })
 })
 

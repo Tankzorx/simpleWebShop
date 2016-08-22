@@ -18,6 +18,7 @@ function ($scope,$location,$rootScope,$timeout,cartService) {
     }, 3000);
   })
   $scope.search = () => {
-    $location.url("/shop/search/" + $scope.searchQuery)
+		let keyword = $scope.searchQuery || "";
+    $location.url("/shop/search?keyword=" + keyword);
   }
 }])

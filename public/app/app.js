@@ -24,7 +24,7 @@ app.config(["$routeProvider","$locationProvider",($routeProvider,$locationProvid
       controller: "cartCtrl"
     })
 
-    .when("/shop/search/:searchQuery", {
+    .when("/shop/search", {
       templateUrl: "app/components/search/search.html",
       controller: "searchCtrl"
     })

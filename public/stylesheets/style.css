@@ -86,3 +86,23 @@ table.cart td,table.cart th {
 body {
   background: #EEE !important;
 }
+/*
+li.loading-gif {
+	align-content: center;
+}*/
+
+img.loading-gif {
+	max-height: 300px;
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+	padding-top: 50px;
+	background-color: #EEE !important;
+}
+
+div.no-search-results {
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+	text-align: center;
+}
