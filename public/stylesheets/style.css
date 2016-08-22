@@ -22,6 +22,21 @@ div.product-image-container {
   border
 }
 
+img.product-image {
+  height: auto;
+  width: auto;
+  max-width: inherit;
+  max-height: inherit;;
+  /*border: 1px solid green;*/
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+div.product-teaser-text {
+	padding: 25px;
+}
+
 img.teaser-image {
   height: auto;
   width: auto;
