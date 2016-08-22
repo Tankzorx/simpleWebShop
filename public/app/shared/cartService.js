@@ -8,10 +8,11 @@ angular.module("ledShop")
    */
   let getCartPromise = $http.get("users/" + userId);
   getCartPromise.then((res) => {
-    if (!res.data) {
+		console.log(res);
+    if (!res.data.user) {
       return;
     };
-    for (item of res.data.cart) {
+    for (item of res.data.user.cart) {
       cart[item.product._id] = {quantity : item.quantity, product : item.product}
     }
     $rootScope.$emit("cartChange")
@@ -25,7 +26,8 @@ angular.module("ledShop")
   let saveCart = (userId,cart) => {
     let saveCartPromise = $http.post("users/save/" + userId, cart)
     saveCartPromise.then((res) => {
-      userId = res.data;
+			console.log(res.data.userId);
+      userId = res.data.userId;
       localStorage.setItem("webShopUser",userId);
     },(res) => {
       console.log(res);

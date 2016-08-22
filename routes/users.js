@@ -16,7 +16,7 @@ router.post("/save/:userId", (req,res) => {
   User.findById(userId,(error,user) => {
     if (error && error.name !== "CastError") {
       console.log(error);
-      return res.status(500).send(error);
+      return res.status(500).send({"error" : error});
     }
     // If no user found, create a new one
     if (!user) {
@@ -24,16 +24,16 @@ router.post("/save/:userId", (req,res) => {
       newUser.save((err) => {
         if (err) {
           console.log(err);
-          return res.status(500).send(err);
+          return res.status(500).send({"error" : err});
         }
-        res.send(newUser._id);
+        return res.send({"userId" : newUser._id});
       })
     }
     // If one was found, update it.
     else {
       let query = User.update(
         {_id : userId},
-        {cart : cart}
+        {cart : cart, lastSeen : new Date()}
       )
 
       query.exec((error,data) => {
@@ -41,7 +41,7 @@ router.post("/save/:userId", (req,res) => {
           console.log(error);
           res.status(500).send(error)
         } else {
-          res.send(userId);
+          res.send({"userId" : userId});
         }
       })
     }
@@ -53,8 +53,9 @@ router.get('/:id', (req, res, next) => {
   User.findById(req.params.id,(err,user) => {
     if (err) {
       console.log(err);
+			res.status(500).send({"error" : err})
     }
-    res.send(user);
+    res.send({"user" : user});
   })
 });
 
