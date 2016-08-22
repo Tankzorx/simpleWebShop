@@ -29,13 +29,13 @@ router.get("/search", parseJson,parseUrlencoded,(req,res) => {
       console.log(error);
       return res.status(500).send(error);
     }
-    return res.send(products);
+    return res.send({"products" : products});
   })
 })
 
 router.get("/:id", parseJson,parseUrlencoded,(req,res) => {
   Product.findById(req.params.id, (err,product) => {
-    res.send(product);
+    res.send({"products" : product});
   })
 })
 
@@ -43,11 +43,12 @@ router.get("/", parseJson,parseUrlencoded, (req,res) => {
   let query = Product.find({}).limit(10)
   query.exec((error,data) => {
     if (error) {
-      res.status(500).send(err);
+      return res.status(500).send({"error" : err});
     }
-    res.send(data);
+    res.send({"products" : data});
   })
 })
+
 router.get("/tag",parseJson,parseUrlencoded, (req,res) => {
   res.status(500).send("Not implemented yet")
 })
@@ -64,10 +65,10 @@ router.post("/add", parseJson,parseUrlencoded,(req,res) => {
   })
   newProduct.save((err) => {
     if (err) {
-      return res.status(500).send(err);
+			return res.status(500).send({"error" : err});
     }
     console.log("Inserted: " + newProduct);
-    res.send(newProduct._id);
+    res.send({"pid" : newProduct._id});
   })
 })
 
@@ -81,7 +82,7 @@ router.post("/addimage", fileUpload(), parseUrlencoded, (req,res) => {
   for (let file in req.files) {
     let fileExt = getFileExt(req.files[file].name);
     if (!fileExt) {
-      return res.status(500).send("Invalid file extension: " + req.files[file].name)
+      return res.status(500).send({"error" : "Invalid file extension: " + req.files[file].name})
     }
   }
 
@@ -94,7 +95,7 @@ router.post("/addimage", fileUpload(), parseUrlencoded, (req,res) => {
     req.files[file].mv(__dirname + "/../public/images/" + imgId + fileExt, function(err) {
       if (err) {
         // In case of error, we don't roll back anything.
-        return res.status(500).send(err);
+        return res.status(500).send({"error" : err});
       }
       else {
         counter += 1;
@@ -108,15 +109,15 @@ router.post("/addimage", fileUpload(), parseUrlencoded, (req,res) => {
               { $pushAll: {images : imageIds} }
             )
           } catch (e) {
-            return res.status(500).send(e);
+            return res.status(500).send({"error" : e});
           }
           query.exec((error,data) => {
             console.log(error);
             console.log(data);
             if (error) {
-              return res.status(500).send(error);
+              return res.status(500).send({"error" : error});
             }
-            return res.send("Success")
+            return res.send({"success" : true})
           })
         }
       }

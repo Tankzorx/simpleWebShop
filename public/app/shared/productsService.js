@@ -12,10 +12,10 @@ angular.module("ledShop")
 
       req.then(
         (res) => {
-          q.resolve(res.data);
+          q.resolve(res.data.products);
         },
         (error) => {
-          q.reject(error);
+          q.reject(error.error);
         }
       )
       return q.promise;
